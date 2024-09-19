@@ -1,0 +1,4 @@
+User-agent: * #모든 사용자
+Disallow: / #/ 하위항목 모두 불허
+Allow : /$ #homepage는 가능
+Allow : /.well-known/privacy-sandbox-attestations.json
