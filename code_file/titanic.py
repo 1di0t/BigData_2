@@ -9,11 +9,13 @@ titanic['deck'] = titanic['deck'].cat.add_categories('Unknown')
 #fill NaN with Unknown
 titanic['deck'].fillna('Unknown',inplace=True)
 
-print(titanic["survived"].value_counts())
+#Calculation of survival rates by gender
+survived_gender = titanic.groupby(by='sex')['survived'].mean().reset_index()
 
-#visualization survived count
-sns.countplot(data=titanic,x='survived')
-plt.title("Survied (0 = No, 1 = Yes)")
-plt.xlabel("Survied")
-plt.ylabel("Count")
+print(survived_gender)
+print(survived_gender.info())
+
+sns.barplot(survived_gender,x="sex",y="survived",color="#ea0060")
+plt.title("survival rates by gender")
+plt.ylabel("survival rate")
 plt.show()
