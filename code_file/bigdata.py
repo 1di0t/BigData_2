@@ -13,7 +13,7 @@ for page_num in range(1, 51):
     trs = tbody.find_all("tr") # type: ignore
     
     for tr in trs:
-        tds = tr.find_all("td")
+        tds = tr.find_all("td") 
         shop_name = tds[1].text
         shop_addr = tds[3].text
         phone_num = tds[5].text
