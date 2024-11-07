@@ -9,14 +9,14 @@ titanic['deck'] = titanic['deck'].cat.add_categories('Unknown')
 #fill NaN with Unknown
 titanic['deck'].fillna('Unknown',inplace=True)
 
-#Removal of missing values
-titanic.dropna(subset=['age'],axis=0,inplace=True)
+#fill NaN value to median of age
+titanic['age'].fillna(titanic['age'].median(),inplace=True)
 print(titanic.info())
-
 
 #Calculation of survival rates by age
 titanic['age'] = titanic['age'].astype(float)
 
+plt.figure(figsize=(10,5))
 sns.histplot(data=titanic,x='age',weights='survived',bins=8,color="#ea0060")
 plt.ylabel("survival rate")
 plt.show()
