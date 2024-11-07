@@ -9,13 +9,14 @@ titanic['deck'] = titanic['deck'].cat.add_categories('Unknown')
 #fill NaN with Unknown
 titanic['deck'].fillna('Unknown',inplace=True)
 
-#Calculation of survival rates by gender
-survived_gender = titanic.groupby(by='sex')['survived'].mean().reset_index()
+#Removal of missing values
+titanic.dropna(subset=['age'],axis=0,inplace=True)
+print(titanic.info())
 
-print(survived_gender)
-print(survived_gender.info())
 
-sns.barplot(survived_gender,x="sex",y="survived",color="#ea0060")
-plt.title("survival rates by gender")
+#Calculation of survival rates by age
+titanic['age'] = titanic['age'].astype(float)
+
+sns.histplot(data=titanic,x='age',weights='survived',bins=8,color="#ea0060")
 plt.ylabel("survival rate")
 plt.show()
