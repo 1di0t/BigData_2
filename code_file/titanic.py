@@ -1,6 +1,6 @@
 import seaborn as sns # based on pandas 
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.model_selection import train_test_split
 
 #load titanic dataset
@@ -20,7 +20,7 @@ y = titanic[['survived']]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 #model construction
-model = LinearRegression()
+model = KNeighborsRegressor(n_neighbors=5)
 
 #model training
 model.fit(X_train,y_train)
