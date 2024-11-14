@@ -1,8 +1,9 @@
-import seaborn as sns
-import pandas as pd
+import seaborn as sns # based on pandas 
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
-
+#load titanic dataset
 titanic = sns.load_dataset('titanic')
 #add category Unkown
 titanic['deck'] = titanic['deck'].cat.add_categories('Unknown')
@@ -11,12 +12,23 @@ titanic['deck'].fillna('Unknown',inplace=True)
 
 #fill NaN value to median of age
 titanic['age'].fillna(titanic['age'].median(),inplace=True)
-print(titanic.info())
+#print(titanic.info())
 
-#Calculation of survival rates by age
-titanic['age'] = titanic['age'].astype(float)
+X = titanic[['age']]
+y = titanic[['survived']]
 
-plt.figure(figsize=(10,5))
-sns.histplot(data=titanic,x='age',weights='survived',bins=8,color="#ea0060")
-plt.ylabel("survival rate")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+#model construction
+model = LinearRegression()
+
+#model training
+model.fit(X_train,y_train)
+
+plt.figure(figsize=(10,6))
+plt.scatter(X_test,y_test,color='orange',label='Real')
+plt.scatter(X_test,model.predict(X_test),color='green',label='Predicted')
+plt.title('Linear Regression Model')
+plt.xlabel('Age')
+plt.ylabel('Survived')
 plt.show()
